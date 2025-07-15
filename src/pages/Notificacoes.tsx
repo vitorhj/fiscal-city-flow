@@ -67,14 +67,14 @@ const Notificacoes = () => {
   const handleView = (id: string) => {
     toast({
       title: "Visualizar",
-      description: `Abrindo detalhes da notificação ${id}`,
+      description: `Abrindo detalhes da autuação ${id}`,
     });
   };
 
   const handleEdit = (id: string) => {
     toast({
       title: "Editar",
-      description: `Editando notificação ${id}`,
+      description: `Editando autuação ${id}`,
     });
   };
 
@@ -82,7 +82,7 @@ const Notificacoes = () => {
     setNotificacoes(notificacoes.filter(n => n.id !== id));
     toast({
       title: "Excluído",
-      description: "Notificação excluída com sucesso",
+      description: "Autuação excluída com sucesso",
     });
   };
 
@@ -102,8 +102,8 @@ const Notificacoes = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Notificações e Intimações</h1>
-          <p className="text-gray-600">Gerencie todas as notificações, intimações, embargos e multas</p>
+          <h1 className="text-3xl font-bold text-gray-900">Autuações</h1>
+          <p className="text-gray-600">Gerencie todas as notificações, intimações, embargos, infrações e multas</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" className="flex items-center gap-2">
@@ -116,7 +116,7 @@ const Notificacoes = () => {
           </Button>
           <Button onClick={() => setShowForm(true)} className="flex items-center gap-2">
             <Plus className="h-4 w-4" />
-            Nova Notificação
+            Nova Autuação
           </Button>
         </div>
       </div>

@@ -27,7 +27,7 @@ const App = () => (
                 <SidebarTrigger className="mr-4" />
                 <div className="flex-1">
                   <h2 className="text-lg font-semibold text-gray-900">
-                    Sistema de Fiscalização Municipal
+                    Sigef
                   </h2>
                 </div>
                 <div className="flex items-center gap-4">
@@ -46,9 +46,9 @@ const App = () => (
                 <Routes>
                   <Route path="/" element={<Dashboard />} />
                   <Route path="/notificacoes" element={<Notificacoes />} />
-                  <Route path="/obras" element={<div className="p-6"><h1 className="text-2xl font-bold">Obras Irregulares</h1><p className="text-gray-600">Em desenvolvimento...</p></div>} />
-                  <Route path="/infracoes" element={<div className="p-6"><h1 className="text-2xl font-bold">Infrações</h1><p className="text-gray-600">Em desenvolvimento...</p></div>} />
-                  <Route path="/posturas" element={<div className="p-6"><h1 className="text-2xl font-bold">Posturas</h1><p className="text-gray-600">Em desenvolvimento...</p></div>} />
+                  <Route path="/obras" element={<div className="p-6"><h1 className="text-2xl font-bold">Monitoramento de Obras</h1><p className="text-gray-600">Em desenvolvimento...</p></div>} />
+                  <Route path="/terrenos" element={<div className="p-6"><h1 className="text-2xl font-bold">Monitoramento de Terrenos baldios</h1><p className="text-gray-600">Em desenvolvimento...</p></div>} />
+                  <Route path="/posturas" element={<div className="p-6"><h1 className="text-2xl font-bold">Fiscalização de Posturas</h1><p className="text-gray-600">Em desenvolvimento...</p></div>} />
                   <Route path="/agenda" element={<div className="p-6"><h1 className="text-2xl font-bold">Agenda</h1><p className="text-gray-600">Em desenvolvimento...</p></div>} />
                   <Route path="/relatorios" element={<div className="p-6"><h1 className="text-2xl font-bold">Relatórios</h1><p className="text-gray-600">Em desenvolvimento...</p></div>} />
                   <Route path="/usuarios" element={<div className="p-6"><h1 className="text-2xl font-bold">Usuários</h1><p className="text-gray-600">Em desenvolvimento...</p></div>} />

@@ -9,7 +9,8 @@ import {
   Users, 
   Settings,
   Calendar,
-  BarChart3
+  BarChart3,
+  TreePine
 } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 
@@ -28,10 +29,10 @@ import {
 
 const menuItems = [
   { title: "Dashboard", url: "/", icon: Home },
-  { title: "Notificações", url: "/notificacoes", icon: FileText },
-  { title: "Obras Irregulares", url: "/obras", icon: Building },
-  { title: "Infrações", url: "/infracoes", icon: AlertTriangle },
-  { title: "Posturas", url: "/posturas", icon: Gavel },
+  { title: "Autuações", url: "/notificacoes", icon: FileText },
+  { title: "Monitoramento de Obras", url: "/obras", icon: Building },
+  { title: "Monitoramento de Terrenos baldios", url: "/terrenos", icon: TreePine },
+  { title: "Fiscalização de Posturas", url: "/posturas", icon: Gavel },
   { title: "Agenda", url: "/agenda", icon: Calendar },
   { title: "Relatórios", url: "/relatorios", icon: BarChart3 },
   { title: "Usuários", url: "/usuarios", icon: Users },
