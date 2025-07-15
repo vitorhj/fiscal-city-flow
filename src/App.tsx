@@ -11,6 +11,10 @@ import Notificacoes from "./pages/Notificacoes";
 import Obras from "./pages/Obras";
 import Terrenos from "./pages/Terrenos";
 import Posturas from "./pages/Posturas";
+import Agenda from "./pages/Agenda";
+import Relatorios from "./pages/Relatorios";
+import Usuarios from "./pages/Usuarios";
+import Configuracoes from "./pages/Configuracoes";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -52,10 +56,10 @@ const App = () => (
                   <Route path="/obras" element={<Obras />} />
                   <Route path="/terrenos" element={<Terrenos />} />
                   <Route path="/posturas" element={<Posturas />} />
-                  <Route path="/agenda" element={<div className="p-6"><h1 className="text-2xl font-bold">Agenda</h1><p className="text-gray-600">Em desenvolvimento...</p></div>} />
-                  <Route path="/relatorios" element={<div className="p-6"><h1 className="text-2xl font-bold">Relatórios</h1><p className="text-gray-600">Em desenvolvimento...</p></div>} />
-                  <Route path="/usuarios" element={<div className="p-6"><h1 className="text-2xl font-bold">Usuários</h1><p className="text-gray-600">Em desenvolvimento...</p></div>} />
-                  <Route path="/configuracoes" element={<div className="p-6"><h1 className="text-2xl font-bold">Configurações</h1><p className="text-gray-600">Em desenvolvimento...</p></div>} />
+                  <Route path="/agenda" element={<Agenda />} />
+                  <Route path="/relatorios" element={<Relatorios />} />
+                  <Route path="/usuarios" element={<Usuarios />} />
+                  <Route path="/configuracoes" element={<Configuracoes />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>
