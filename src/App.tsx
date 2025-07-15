@@ -18,7 +18,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <SidebarProvider collapsedWidth={56}>
+        <SidebarProvider>
           <div className="min-h-screen flex w-full bg-gray-50">
             <AppSidebar />
             <div className="flex-1 flex flex-col">

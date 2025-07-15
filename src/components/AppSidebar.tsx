@@ -39,10 +39,11 @@ const menuItems = [
 ];
 
 export function AppSidebar() {
-  const { collapsed } = useSidebar();
+  const { state } = useSidebar();
   const location = useLocation();
   const currentPath = location.pathname;
 
+  const isCollapsed = state === "collapsed";
   const isActive = (path: string) => currentPath === path;
   const isExpanded = menuItems.some((item) => isActive(item.url));
 
@@ -51,18 +52,18 @@ export function AppSidebar() {
 
   return (
     <Sidebar
-      className={collapsed ? "w-14" : "w-64"}
-      collapsible
+      className={isCollapsed ? "w-14" : "w-64"}
+      collapsible="offcanvas"
     >
       <SidebarTrigger className="m-2 self-end" />
 
       <SidebarContent className="bg-white border-r">
         <div className="p-4 border-b">
-          <div className={`flex items-center gap-3 ${collapsed ? 'justify-center' : ''}`}>
+          <div className={`flex items-center gap-3 ${isCollapsed ? 'justify-center' : ''}`}>
             <div className="bg-blue-600 text-white p-2 rounded-lg">
               <Gavel className="h-5 w-5" />
             </div>
-            {!collapsed && (
+            {!isCollapsed && (
               <div>
                 <h2 className="font-bold text-gray-900">Fiscalização</h2>
                 <p className="text-xs text-gray-500">Prefeitura Municipal</p>
@@ -71,8 +72,8 @@ export function AppSidebar() {
           </div>
         </div>
 
-        <SidebarGroup open={isExpanded}>
-          <SidebarGroupLabel className={collapsed ? "sr-only" : ""}>
+        <SidebarGroup>
+          <SidebarGroupLabel className={isCollapsed ? "sr-only" : ""}>
             Sistema de Fiscalização
           </SidebarGroupLabel>
 
@@ -83,7 +84,7 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <NavLink to={item.url} className={getNavCls}>
                       <item.icon className="h-5 w-5 mr-3" />
-                      {!collapsed && <span>{item.title}</span>}
+                      {!isCollapsed && <span>{item.title}</span>}
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
