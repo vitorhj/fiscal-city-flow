@@ -8,6 +8,9 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import Dashboard from "./pages/Dashboard";
 import Notificacoes from "./pages/Notificacoes";
+import Obras from "./pages/Obras";
+import Terrenos from "./pages/Terrenos";
+import Posturas from "./pages/Posturas";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -46,9 +49,9 @@ const App = () => (
                 <Routes>
                   <Route path="/" element={<Dashboard />} />
                   <Route path="/notificacoes" element={<Notificacoes />} />
-                  <Route path="/obras" element={<div className="p-6"><h1 className="text-2xl font-bold">Monitoramento de Obras</h1><p className="text-gray-600">Em desenvolvimento...</p></div>} />
-                  <Route path="/terrenos" element={<div className="p-6"><h1 className="text-2xl font-bold">Monitoramento de Terrenos baldios</h1><p className="text-gray-600">Em desenvolvimento...</p></div>} />
-                  <Route path="/posturas" element={<div className="p-6"><h1 className="text-2xl font-bold">Fiscalização de Posturas</h1><p className="text-gray-600">Em desenvolvimento...</p></div>} />
+                  <Route path="/obras" element={<Obras />} />
+                  <Route path="/terrenos" element={<Terrenos />} />
+                  <Route path="/posturas" element={<Posturas />} />
                   <Route path="/agenda" element={<div className="p-6"><h1 className="text-2xl font-bold">Agenda</h1><p className="text-gray-600">Em desenvolvimento...</p></div>} />
                   <Route path="/relatorios" element={<div className="p-6"><h1 className="text-2xl font-bold">Relatórios</h1><p className="text-gray-600">Em desenvolvimento...</p></div>} />
                   <Route path="/usuarios" element={<div className="p-6"><h1 className="text-2xl font-bold">Usuários</h1><p className="text-gray-600">Em desenvolvimento...</p></div>} />
