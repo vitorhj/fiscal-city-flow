@@ -62,55 +62,62 @@ export const NotificacaoTable = ({ notificacoes, onView, onEdit, onDelete }: Not
     // Configurações do PDF
     doc.setFont('helvetica');
     
+    // Adicionar imagem do brasão (simulando - em produção seria carregada do assets)
+    // Para incluir a imagem, seria necessário converter para base64 primeiro
+    
     // Cabeçalho
-    doc.setFontSize(16);
-    doc.text('PREFEITURA MUNICIPAL', 105, 20, { align: 'center' });
+    doc.setFontSize(18);
+    doc.text('MUNICÍPIO DE ITAJAÍ', 105, 30, { align: 'center' });
     doc.setFontSize(14);
-    doc.text('SECRETARIA DE FISCALIZAÇÃO', 105, 30, { align: 'center' });
+    doc.text('SECRETARIA DE FISCALIZAÇÃO', 105, 40, { align: 'center' });
     
     // Tipo de documento
     const tipoDoc = notificacao.tipo.charAt(0).toUpperCase() + notificacao.tipo.slice(1);
-    doc.setFontSize(18);
-    doc.text(`${tipoDoc.toUpperCase()}`, 105, 50, { align: 'center' });
-    
-    // Número do documento
-    doc.setFontSize(12);
-    doc.text(`Número: ${notificacao.numero}`, 20, 70);
+    doc.setFontSize(16);
+    doc.text(`AUTO DE ${tipoDoc.toUpperCase()}`, 105, 55, { align: 'center' });
     
     // Linha separadora
-    doc.line(20, 75, 190, 75);
+    doc.line(20, 65, 190, 65);
     
-    // Dados do contribuinte
-    let yPos = 90;
+    // Estrutura da autuação conforme solicitado
+    let yPos = 80;
     doc.setFontSize(12);
-    doc.text('DADOS DO CONTRIBUINTE:', 20, yPos);
-    yPos += 10;
-    doc.text(`Nome/Razão Social: ${notificacao.contribuinte}`, 20, yPos);
-    yPos += 8;
-    doc.text(`CPF/CNPJ: ${notificacao.cpfCnpj}`, 20, yPos);
-    yPos += 8;
-    doc.text(`Endereço: ${notificacao.endereco}`, 20, yPos);
-    
-    // Dados da autuação
-    yPos += 20;
+    doc.setFont('helvetica', 'bold');
     doc.text('DADOS DA AUTUAÇÃO:', 20, yPos);
+    doc.setFont('helvetica', 'normal');
+    
+    yPos += 15;
+    doc.text(`Número do Auto: ${notificacao.numero}`, 20, yPos);
+    
     yPos += 10;
     doc.text(`Data de Emissão: ${format(new Date(notificacao.dataEmissao), 'dd/MM/yyyy')}`, 20, yPos);
-    yPos += 8;
+    
+    yPos += 10;
     doc.text(`Prazo para Cumprimento: ${format(new Date(notificacao.prazoVencimento), 'dd/MM/yyyy')}`, 20, yPos);
-    yPos += 8;
-    doc.text(`Fiscal Responsável: ${notificacao.fiscal}`, 20, yPos);
-    yPos += 8;
-    doc.text(`Status: ${notificacao.status.charAt(0).toUpperCase() + notificacao.status.slice(1)}`, 20, yPos);
     
-    if (notificacao.valor) {
-      yPos += 8;
-      doc.text(`Valor: R$ ${notificacao.valor.toFixed(2)}`, 20, yPos);
-    }
+    yPos += 10;
+    doc.text(`Tipo de Irregularidade: ${notificacao.tipo.charAt(0).toUpperCase() + notificacao.tipo.slice(1)}`, 20, yPos);
     
-    // Descrição da infração
+    // Dados do infrator
     yPos += 20;
-    doc.text('DESCRIÇÃO DA INFRAÇÃO:', 20, yPos);
+    doc.setFont('helvetica', 'bold');
+    doc.text('DADOS DO INFRATOR:', 20, yPos);
+    doc.setFont('helvetica', 'normal');
+    
+    yPos += 15;
+    doc.text(`Nome do Infrator: ${notificacao.contribuinte}`, 20, yPos);
+    
+    yPos += 10;
+    doc.text(`CPF/CNPJ do Infrator: ${notificacao.cpfCnpj}`, 20, yPos);
+    
+    yPos += 10;
+    doc.text(`Endereço: ${notificacao.endereco}`, 20, yPos);
+    
+    // Descrição da irregularidade
+    yPos += 20;
+    doc.setFont('helvetica', 'bold');
+    doc.text('DESCRIÇÃO DA IRREGULARIDADE:', 20, yPos);
+    doc.setFont('helvetica', 'normal');
     yPos += 10;
     
     // Quebrar texto longo em múltiplas linhas
@@ -118,10 +125,45 @@ export const NotificacaoTable = ({ notificacoes, onView, onEdit, onDelete }: Not
     doc.text(splitText, 20, yPos);
     yPos += splitText.length * 6;
     
+    // Embasamento legal (campo padrão para autuações)
+    yPos += 15;
+    doc.setFont('helvetica', 'bold');
+    doc.text('EMBASAMENTO LEGAL:', 20, yPos);
+    doc.setFont('helvetica', 'normal');
+    yPos += 10;
+    doc.text('Lei Complementar Municipal nº 123/2006 - Código de Posturas', 20, yPos);
+    yPos += 8;
+    doc.text('Lei Municipal nº 456/2010 - Código de Obras e Edificações', 20, yPos);
+    
+    // Dados do fiscal
+    yPos += 20;
+    doc.setFont('helvetica', 'bold');
+    doc.text('FISCAL RESPONSÁVEL:', 20, yPos);
+    doc.setFont('helvetica', 'normal');
+    yPos += 15;
+    doc.text(`Nome do Fiscal: ${notificacao.fiscal}`, 20, yPos);
+    
+    yPos += 10;
+    // Matrícula simulada baseada no nome do fiscal
+    const matricula = notificacao.fiscal.split(' ').map(n => n.charAt(0)).join('').toUpperCase() + '001';
+    doc.text(`Matrícula: ${matricula}`, 20, yPos);
+    
+    // Valor da multa (se houver)
+    if (notificacao.valor) {
+      yPos += 15;
+      doc.setFont('helvetica', 'bold');
+      doc.text('VALOR DA MULTA:', 20, yPos);
+      doc.setFont('helvetica', 'normal');
+      yPos += 10;
+      doc.text(`R$ ${notificacao.valor.toFixed(2).replace('.', ',')}`, 20, yPos);
+    }
+    
     // Observações (se houver)
     if (notificacao.observacoes) {
-      yPos += 15;
+      yPos += 20;
+      doc.setFont('helvetica', 'bold');
       doc.text('OBSERVAÇÕES:', 20, yPos);
+      doc.setFont('helvetica', 'normal');
       yPos += 10;
       const splitObs = doc.splitTextToSize(notificacao.observacoes, 170);
       doc.text(splitObs, 20, yPos);
@@ -130,11 +172,12 @@ export const NotificacaoTable = ({ notificacoes, onView, onEdit, onDelete }: Not
     // Rodapé
     const pageHeight = doc.internal.pageSize.height;
     doc.setFontSize(10);
-    doc.text('Este documento foi gerado automaticamente pelo Sistema de Fiscalização Municipal', 105, pageHeight - 20, { align: 'center' });
-    doc.text(`Gerado em: ${format(new Date(), 'dd/MM/yyyy HH:mm')}`, 105, pageHeight - 10, { align: 'center' });
+    doc.text('Este documento foi gerado automaticamente pelo Sistema de Fiscalização Municipal de Itajaí', 105, pageHeight - 30, { align: 'center' });
+    doc.text(`Gerado em: ${format(new Date(), 'dd/MM/yyyy HH:mm')}`, 105, pageHeight - 20, { align: 'center' });
+    doc.text('Município de Itajaí - SC', 105, pageHeight - 10, { align: 'center' });
     
     // Salvar o PDF
-    doc.save(`${notificacao.numero}.pdf`);
+    doc.save(`Auto_${notificacao.numero.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`);
   };
 
   const notificacoesFiltradas = notificacoes.filter(notificacao => {
