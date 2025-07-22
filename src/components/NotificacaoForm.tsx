@@ -59,7 +59,7 @@ export const NotificacaoForm = ({ onSubmit, onCancel }: NotificacaoFormProps) =>
   return (
     <Card className="w-full max-w-2xl mx-auto">
       <CardHeader>
-        <CardTitle>Nova Notificação/Intimação</CardTitle>
+        <CardTitle>Novo auto</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">

@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { NotificacaoForm } from "@/components/NotificacaoForm";
+import { NotificacaoEditForm } from "@/components/NotificacaoEditForm";
 import { NotificacaoTable } from "@/components/NotificacaoTable";
 import { Plus, Download, Upload } from "lucide-react";
 import { Notificacao } from "@/types/fiscalizacao";
@@ -9,6 +10,7 @@ import { toast } from "@/hooks/use-toast";
 
 const Notificacoes = () => {
   const [showForm, setShowForm] = useState(false);
+  const [editingNotificacao, setEditingNotificacao] = useState<Notificacao | null>(null);
   const [notificacoes, setNotificacoes] = useState<Notificacao[]>([
     {
       id: "1",
@@ -72,10 +74,15 @@ const Notificacoes = () => {
   };
 
   const handleEdit = (id: string) => {
-    toast({
-      title: "Editar",
-      description: `Editando autuação ${id}`,
-    });
+    const notificacao = notificacoes.find(n => n.id === id);
+    if (notificacao) {
+      setEditingNotificacao(notificacao);
+    }
+  };
+
+  const handleEditSubmit = (data: Notificacao) => {
+    setNotificacoes(notificacoes.map(n => n.id === data.id ? data : n));
+    setEditingNotificacao(null);
   };
 
   const handleDelete = (id: string) => {
@@ -92,6 +99,18 @@ const Notificacoes = () => {
         <NotificacaoForm 
           onSubmit={handleSubmit}
           onCancel={() => setShowForm(false)}
+        />
+      </div>
+    );
+  }
+
+  if (editingNotificacao) {
+    return (
+      <div className="p-6">
+        <NotificacaoEditForm 
+          notificacao={editingNotificacao}
+          onSubmit={handleEditSubmit}
+          onCancel={() => setEditingNotificacao(null)}
         />
       </div>
     );

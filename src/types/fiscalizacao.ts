@@ -22,6 +22,16 @@ export interface Notificacao {
   fiscal: string;
   valor?: number;
   observacoes?: string;
+  // Novos campos
+  inscricaoImobiliaria?: string;
+  logradouro?: string;
+  numeroEndereco?: string;
+  bairro?: string;
+  complemento?: string;
+  tipoIrregularidade?: 'obra_irregular' | 'empresa_irregular' | 'terreno_sujo';
+  numeroRecurso?: string;
+  origemIrregularidade?: 'autoconstatacao' | 'agente_controle_urbano' | 'denuncia';
+  statusResolucao?: 'resolvido' | 'pendente';
 }
 
 export interface ObraIrregular {
